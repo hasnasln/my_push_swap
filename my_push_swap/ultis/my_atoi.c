@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   my_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haslan <haslan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 10:41:24 by haslan            #+#    #+#             */
-/*   Updated: 2024/05/23 11:35:59 by haslan           ###   ########.fr       */
+/*   Created: 2024/03/02 13:44:14 by haslan            #+#    #+#             */
+/*   Updated: 2024/03/02 14:30:07 by haslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
-
-int	main(int argc, char **argv)
+long	ft_atoi(const char *str)
 {
-	t_data	data;
+	int		sing;
+	long	result;
 
-	if (!argv_correct(argc, argv))
-		return (0);
-	if (define_argv(&data, argv) == FAIL)
-		return (0);
-	if (create(&data) == -1)
-		return (0);
-	free_all(&data);
-	return (0);
+	result = 0;
+	sing = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sing = 1;
+		str++;
+	}
+	while (*str >= 48 && *str <= 57)
+	{
+		result = (result * 10) + (*str - 48);
+		str++;
+	}
+	if (sing)
+		return (result * (-1));
+	return (result);
 }

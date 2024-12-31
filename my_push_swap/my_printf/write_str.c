@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   take_fork.c                                        :+:      :+:    :+:   */
+/*   write_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haslan <haslan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 10:40:58 by haslan            #+#    #+#             */
-/*   Updated: 2024/05/23 10:51:55 by haslan           ###   ########.fr       */
+/*   Created: 2024/03/09 15:04:12 by haslan            #+#    #+#             */
+/*   Updated: 2024/03/09 15:04:12 by haslan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include <unistd.h>
 
-int	take_fork(t_philo *philo)
+int	ft_putstr(char *str)
 {
-	if ((philo->left_m) && look_ssf(philo->data) != STOP)
+	int	len;
+
+	len = 0;
+	if (!str)
+		return (write(1, "(null)", 6));
+	while (*str)
 	{
-		pthread_mutex_lock(philo->left_m);
-		pps(philo, "Take left fork");
-		philo->take_left = 1;
+		if (write(1, &(*str), 1) == -1)
+			return (-1);
+		str++;
+		len++;
 	}
-	if ((philo->rigth_m) && look_ssf(philo->data) != STOP)
-	{
-		pthread_mutex_lock(philo->rigth_m);
-		pps(philo, "Take right fork");
-		philo->take_right = 1;
-	}
-	return (0);
+	return (len);
 }
